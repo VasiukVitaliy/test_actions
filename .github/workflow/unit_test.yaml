@@ -1,0 +1,28 @@
+name: Python test CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # <- Виправлено: додано літеру 's'
+
+    steps:
+      - name: Check the code
+        uses: actions/checkout@v6 # <- Виправлено: актуальна версія v4
+
+      - name: Setup python
+        uses: actions/setup-python@v6 # <- Виправлено: актуальна версія v5
+        with:
+          python-version: '3.13' 
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip 
+          pip install -r requirements.txt
+      
+      - name: Run test
+        run: pytest
